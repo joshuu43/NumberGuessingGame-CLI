@@ -13,6 +13,9 @@ namespace Number_Guessing_Game
             Random random = new Random();
             int ran = random.Next(1, 101);
             int difficulty;
+            int chances = 0;
+            int top = 13;
+            bool gameOver = false;
 
             Console.WriteLine("Welcome to the Number Guessing Game!");
             Console.WriteLine("I'm thinking of a number between 1 and 100.\n");
@@ -26,6 +29,129 @@ namespace Number_Guessing_Game
             Console.SetCursorPosition(19, 8);
             difficulty = int.Parse(Console.ReadLine());
 
+            switch (difficulty)
+            {
+                case 1:
+                    Console.WriteLine("\nGreat! You have selected the Easy difficulty level.");
+                    Console.WriteLine("Let's start the game!");
+
+                    while (gameOver != true)
+                    {
+                        if (chances != 10)
+                        {
+                            Console.WriteLine("\nEnter your guess: ");
+                            Console.SetCursorPosition(18, top);
+                            int guess = int.Parse(Console.ReadLine());
+
+                            if (guess < ran)
+                            {
+                                Console.WriteLine("Incorrect! The number is greater than " + guess + ".");
+                                top += 3;
+                                chances++;
+                            }
+                            else if (guess > ran)
+                            {
+                                Console.WriteLine("Incorrect! The number is less than " + guess + ".");
+                                top += 3;
+                                chances++;
+                            }
+                            else
+                            {
+                                chances++;
+                                Console.WriteLine("Congratulations! You guessed the correct number in " + chances + " attempts.");
+                                gameOver = true;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nGame Over! You've used all your chances. The correct number was " + ran + ".");
+                            gameOver = true;
+                        }
+                    }
+                
+                    break;
+                case 2:
+                    Console.WriteLine("\nGreat! You have selected the Medium difficulty level.");
+                    Console.WriteLine("Let's start the game!");
+
+                    while (gameOver != true)
+                    {
+                        if (chances != 5)
+                        {
+                            Console.WriteLine("\nEnter your guess: ");
+                            Console.SetCursorPosition(18, top);
+                            int guess = int.Parse(Console.ReadLine());
+
+                            if (guess < ran)
+                            {
+                                Console.WriteLine("Incorrect! The number is greater than " + guess + ".");
+                                top += 3;
+                                chances++;
+                            }
+                            else if (guess > ran)
+                            {
+                                Console.WriteLine("Incorrect! The number is less than " + guess + ".");
+                                top += 3;
+                                chances++;
+                            }
+                            else
+                            {
+                                chances++;
+                                Console.WriteLine("Congratulations! You guessed the correct number in " + chances + " attempts.");
+                                gameOver = true;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nGame Over! You've used all your chances. The correct number was " + ran + ".");
+                            gameOver = true;
+                        }
+                    }
+
+                    break;
+                case 3:
+                    Console.WriteLine("\nGreat! You have selected the Hard difficulty level.");
+                    Console.WriteLine("Let's start the game!");
+
+                    while (gameOver != true)
+                    {
+                        if (chances != 3)
+                        {
+                            Console.WriteLine("\nEnter your guess: ");
+                            Console.SetCursorPosition(18, top);
+                            int guess = int.Parse(Console.ReadLine());
+
+                            if (guess < ran)
+                            {
+                                Console.WriteLine("Incorrect! The number is greater than " + guess + ".");
+                                top += 3;
+                                chances++;
+                            }
+                            else if (guess > ran)
+                            {
+                                Console.WriteLine("Incorrect! The number is less than " + guess + ".");
+                                top += 3;
+                                chances++;
+                            }
+                            else
+                            {
+                                chances++;
+                                Console.WriteLine("Congratulations! You guessed the correct number in " + chances + " attempts.");
+                                gameOver = true;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nGame Over! You've used all your chances. The correct number was " + ran + ".");
+                            gameOver = true;
+                        }
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    chances = 10;
+                    break;
+            }
         }
     }
 }
