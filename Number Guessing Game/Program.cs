@@ -27,7 +27,7 @@ namespace Number_Guessing_Game
 
             Console.WriteLine("Enter your choice: ");
             Console.SetCursorPosition(19, 8);
-            difficulty = int.Parse(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out difficulty);
 
             switch (difficulty)
             {
@@ -35,7 +35,7 @@ namespace Number_Guessing_Game
                     Console.WriteLine("\nGreat! You have selected the Easy difficulty level.");
                     Console.WriteLine("Let's start the game!");
 
-                    while (gameOver != true)
+                    while (!gameOver)
                     {
                         if (chances != 10)
                         {
@@ -74,7 +74,7 @@ namespace Number_Guessing_Game
                     Console.WriteLine("\nGreat! You have selected the Medium difficulty level.");
                     Console.WriteLine("Let's start the game!");
 
-                    while (gameOver != true)
+                    while (!gameOver)
                     {
                         if (chances != 5)
                         {
@@ -113,7 +113,7 @@ namespace Number_Guessing_Game
                     Console.WriteLine("\nGreat! You have selected the Hard difficulty level.");
                     Console.WriteLine("Let's start the game!");
 
-                    while (gameOver != true)
+                    while (!gameOver)
                     {
                         if (chances != 3)
                         {
