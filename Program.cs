@@ -1,14 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Number_Guessing_Game
 {
-    internal class Program
+    class game
     {
-        static void Main(string[] args)
+        public void restart()
+        {
+            Console.WriteLine("\nDo you want to play again? (y/n)");
+            string choice = Console.ReadLine().ToLower();
+            if (choice == "y")
+            {
+                Start();
+            }
+            else
+            {
+                Console.WriteLine("Thank you for playing! Goodbye.");
+                Environment.Exit(0);
+            }
+        }
+
+        public void Start()
         {
             Random random = new Random();
             int ran = random.Next(1, 101);
@@ -16,7 +32,8 @@ namespace Number_Guessing_Game
             int chances = 0;
             int top = 13;
             bool gameOver = false;
-
+            
+            Console.Clear();
             Console.WriteLine("Welcome to the Number Guessing Game!");
             Console.WriteLine("I'm thinking of a number between 1 and 100.\n");
 
@@ -25,8 +42,7 @@ namespace Number_Guessing_Game
             Console.WriteLine("2. Medium (5 chances)");
             Console.WriteLine("3. Hard (3 chances)\n");
 
-            Console.WriteLine("Enter your choice: ");
-            Console.SetCursorPosition(19, 8);
+            Console.Write("Enter your choice: ");
             int.TryParse(Console.ReadLine(), out difficulty);
 
             switch (difficulty)
@@ -39,8 +55,7 @@ namespace Number_Guessing_Game
                     {
                         if (chances != 10)
                         {
-                            Console.WriteLine("\nEnter your guess: ");
-                            Console.SetCursorPosition(18, top);
+                            Console.Write("\nEnter your guess: ");
                             int guess = int.Parse(Console.ReadLine());
 
                             if (guess < ran)
@@ -59,16 +74,16 @@ namespace Number_Guessing_Game
                             {
                                 chances++;
                                 Console.WriteLine("Congratulations! You guessed the correct number in " + chances + " attempts.");
-                                gameOver = true;
+                                restart();
                             }
                         }
                         else
                         {
                             Console.WriteLine("\nGame Over! You've used all your chances. The correct number was " + ran + ".");
-                            gameOver = true;
+                            restart();
                         }
                     }
-                
+
                     break;
                 case 2:
                     Console.WriteLine("\nGreat! You have selected the Medium difficulty level.");
@@ -78,8 +93,7 @@ namespace Number_Guessing_Game
                     {
                         if (chances != 5)
                         {
-                            Console.WriteLine("\nEnter your guess: ");
-                            Console.SetCursorPosition(18, top);
+                            Console.Write("\nEnter your guess: ");
                             int guess = int.Parse(Console.ReadLine());
 
                             if (guess < ran)
@@ -98,13 +112,13 @@ namespace Number_Guessing_Game
                             {
                                 chances++;
                                 Console.WriteLine("Congratulations! You guessed the correct number in " + chances + " attempts.");
-                                gameOver = true;
+                                restart();
                             }
                         }
                         else
                         {
                             Console.WriteLine("\nGame Over! You've used all your chances. The correct number was " + ran + ".");
-                            gameOver = true;
+                            restart();
                         }
                     }
 
@@ -117,8 +131,7 @@ namespace Number_Guessing_Game
                     {
                         if (chances != 3)
                         {
-                            Console.WriteLine("\nEnter your guess: ");
-                            Console.SetCursorPosition(18, top);
+                            Console.Write("\nEnter your guess: ");
                             int guess = int.Parse(Console.ReadLine());
 
                             if (guess < ran)
@@ -137,20 +150,52 @@ namespace Number_Guessing_Game
                             {
                                 chances++;
                                 Console.WriteLine("Congratulations! You guessed the correct number in " + chances + " attempts.");
-                                gameOver = true;
+                                restart();
                             }
                         }
                         else
                         {
                             Console.WriteLine("\nGame Over! You've used all your chances. The correct number was " + ran + ".");
-                            gameOver = true;
+                            restart();
                         }
                     }
                     break;
+
                 default:
                     Console.WriteLine("Invalid choice.");
                     chances = 10;
                     break;
+            }
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            game gameInstance = new game();
+
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Enter a command. Use --help to see the options.");
+                return;
+            }
+
+            string comando = args[0].ToLowerInvariant();
+
+            if (comando == "start")
+            {
+                gameInstance.Start();
+            }
+            else if (comando == "--help")
+            {
+                Console.WriteLine("Available commands:");
+                Console.WriteLine("start - Start the number guessing game.");
+                Console.WriteLine("--help - Show this help message.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid command. Please use 'start' to begin the game.");
             }
         }
     }
